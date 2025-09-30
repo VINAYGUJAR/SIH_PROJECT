@@ -16,7 +16,8 @@ export default function SearchInterface() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [ setSelectedResult] = useState<SearchResult | null>(null);
+// before: const [ setSelectedResult] = useState<SearchResult | null>(null);
+const [_selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
 
   // Mock data
   const mockResults: SearchResult[] = [
