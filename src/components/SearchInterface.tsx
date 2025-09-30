@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, ExternalLink, Copy, CheckCircle, AlertCircle } from 'lucide-react';
 
 interface SearchResult {
@@ -16,9 +16,9 @@ export default function SearchInterface() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [ setSelectedResult] = useState<SearchResult | null>(null);
+  const [selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
 
-  // Mock data for demonstration
+  // Mock data
   const mockResults: SearchResult[] = [
     {
       id: '1',
@@ -28,7 +28,7 @@ export default function SearchInterface() {
       icd11Code: 'TM2.01.01',
       icd11Term: 'Fever due to wind pattern disorder',
       whoTerminology: 'Vata Predominant Fever Pattern',
-      confidence: 95
+      confidence: 95,
     },
     {
       id: '2',
@@ -38,9 +38,8 @@ export default function SearchInterface() {
       icd11Code: 'TM2.02.15',
       icd11Term: 'Bile pattern related gastric disorder',
       whoTerminology: 'Pitta Digestive Pattern Disturbance',
-      confidence: 88
+      confidence: 88,
     },
-  
   ];
 
   useEffect(() => {
@@ -48,13 +47,14 @@ export default function SearchInterface() {
       setIsSearching(true);
       const timer = setTimeout(() => {
         setSearchResults(
-          mockResults.filter(result => 
+          mockResults.filter(result =>
             result.term.toLowerCase().includes(searchTerm.toLowerCase()) ||
             result.namasteCode.toLowerCase().includes(searchTerm.toLowerCase())
           )
         );
         setIsSearching(false);
-      }, 800);
+      }, 500);
+
       return () => clearTimeout(timer);
     } else {
       setSearchResults([]);
@@ -76,7 +76,7 @@ export default function SearchInterface() {
 
   return (
     <div className="space-y-6">
-      {/* Search Header */}
+      {/* Header */}
       <div>
         <h2 className="text-2xl font-bold text-gray-900 mb-2">Code Search & Lookup</h2>
         <p className="text-gray-600">Search NAMASTE codes and find corresponding WHO ICD-11 TM2 mappings</p>
@@ -107,8 +107,7 @@ export default function SearchInterface() {
       {searchResults.length > 0 && (
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-gray-900">Search Results ({searchResults.length})</h3>
-          
-          {searchResults.map((result) => (
+          {searchResults.map(result => (
             <div
               key={result.id}
               className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow cursor-pointer"
@@ -122,9 +121,9 @@ export default function SearchInterface() {
                     </span>
                     <span className="text-sm font-mono text-gray-600">{result.namasteCode}</span>
                   </div>
-                  
+
                   <h4 className="text-xl font-semibold text-gray-900 mb-2">{result.term}</h4>
-                  
+
                   {result.icd11Code && (
                     <div className="bg-blue-50 p-3 rounded-lg mb-3">
                       <div className="flex items-center space-x-2 mb-1">
@@ -134,7 +133,7 @@ export default function SearchInterface() {
                       <p className="text-sm text-blue-800">{result.icd11Term}</p>
                     </div>
                   )}
-                  
+
                   {result.whoTerminology && (
                     <div className="bg-green-50 p-3 rounded-lg">
                       <span className="text-sm font-medium text-green-700">WHO Terminology:</span>
@@ -142,7 +141,7 @@ export default function SearchInterface() {
                     </div>
                   )}
                 </div>
-                
+
                 <div className="ml-4 flex flex-col items-end space-y-2">
                   <div className="flex items-center space-x-1">
                     {result.confidence >= 90 ? (
@@ -152,7 +151,7 @@ export default function SearchInterface() {
                     )}
                     <span className="text-sm text-gray-600">{result.confidence}% match</span>
                   </div>
-                  
+
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -177,33 +176,6 @@ export default function SearchInterface() {
           <p className="text-gray-600">Try searching with different keywords or NAMASTE codes</p>
         </div>
       )}
-
-      {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-        <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg">
-          <h4 className="font-semibold text-green-800 mb-2">Ayurveda Codes</h4>
-          <p className="text-sm text-green-700">2,450 standardized terminologies</p>
-          <button className="mt-2 text-sm text-green-600 hover:text-green-700 flex items-center">
-            Browse all <ExternalLink className="h-4 w-4 ml-1" />
-          </button>
-        </div>
-        
-        <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
-          <h4 className="font-semibold text-blue-800 mb-2">Siddha Codes</h4>
-          <p className="text-sm text-blue-700">1,200 standardized terminologies</p>
-          <button className="mt-2 text-sm text-blue-600 hover:text-blue-700 flex items-center">
-            Browse all <ExternalLink className="h-4 w-4 ml-1" />
-          </button>
-        </div>
-        
-        <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg">
-          <h4 className="font-semibold text-orange-800 mb-2">Unani Codes</h4>
-          <p className="text-sm text-orange-700">871 standardized terminologies</p>
-          <button className="mt-2 text-sm text-orange-600 hover:text-orange-700 flex items-center">
-            Browse all <ExternalLink className="h-4 w-4 ml-1" />
-          </button>
-        </div>
-      </div>
     </div>
   );
 }
