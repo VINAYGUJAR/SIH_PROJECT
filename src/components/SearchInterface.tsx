@@ -40,16 +40,7 @@ export default function SearchInterface() {
       whoTerminology: 'Pitta Digestive Pattern Disturbance',
       confidence: 88
     },
-    {
-      id: '3',
-      namasteCode: 'UNA-003478',
-      term: 'Balgham Mizaj',
-      system: 'unani',
-      icd11Code: 'TM2.03.22',
-      icd11Term: 'Phlegmatic temperament disorder',
-      whoTerminology: 'Kapha Constitutional Imbalance',
-      confidence: 92
-    }
+  
   ];
 
   useEffect(() => {
