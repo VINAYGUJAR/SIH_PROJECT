@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, ExternalLink, Copy, CheckCircle, AlertCircle } from 'lucide-react';
+import { Search, Copy, CheckCircle, AlertCircle } from 'lucide-react';
 
 interface SearchResult {
   id: string;
@@ -16,7 +16,7 @@ export default function SearchInterface() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
+  const [ setSelectedResult] = useState<SearchResult | null>(null);
 
   // Mock data
   const mockResults: SearchResult[] = [
