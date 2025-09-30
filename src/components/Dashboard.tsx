@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import  { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   Heart, 
   Search, 
   Database, 
   FileText, 
-  Settings, 
+  
   LogOut, 
   Globe,
   ShieldCheck,
   Activity,
-  Users,
-  TrendingUp,
-  Download,
-  Plus
+ 
 } from 'lucide-react';
 import { useAuth } from '../Context/AuthContext';
 import SearchInterface from './SearchInterface';
